@@ -20,6 +20,12 @@
 #include <linux/slab.h>
 #include <linux/workqueue.h>
 #include <linux/module.h>
+#ifdef CONFIG_MACH_MSM8960_VU2
+#include <linux/delay.h>
+extern int suspend ;
+int blue_status = 0 ;
+extern void blue_led_nofi(int blue_level) ;
+#endif
 
 struct gpio_led_data {
 	struct led_classdev cdev;
@@ -61,7 +67,21 @@ static void gpio_led_set(struct led_classdev *led_cdev,
 
 	if (led_dat->active_low)
 		level = !level;
-
+#ifdef CONFIG_MACH_MSM8960_VU2
+	if ( level == 1 )
+	{
+		blue_status = 1 ;
+		msleep(400);
+		blue_led_nofi(1);
+		printk("dongju99.kim %s%d\n", __func__, level);
+	}
+	else if ( level == 0 && suspend == 0 )
+	{
+		blue_status = 0 ;
+		blue_led_nofi(0);
+		printk("dongju99.kim %s%d%d\n", __func__, level, suspend);
+	}
+#endif
 	/* Setting GPIOs with I2C/etc requires a task context, and we don't
 	 * seem to have a reliable way to know if we're already in one; so
 	 * let's just assume the worst.
@@ -75,7 +95,13 @@ static void gpio_led_set(struct led_classdev *led_cdev,
 							 NULL, NULL);
 			led_dat->blinking = 0;
 		} else
-			gpio_set_value(led_dat->gpio, level);
+			{
+#ifdef CONFIG_MACH_MSM8960_VU2
+//		gpio_set_value(led_dat->gpio, level);
+#else
+		gpio_set_value(led_dat->gpio, level);
+#endif
+	}
 	}
 }
 

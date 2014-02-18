@@ -98,9 +98,13 @@ extern void tcp_time_wait(struct sock *sk, int state, int timeo);
 				 * 15 is ~13-30min depending on RTO.
 				 */
 
+//jk.soh 20120117, LG U+ TCP SYN retry interval
+#ifdef CONFIG_MACH_MSM8960_D1LU
+#define TCP_SYN_RETRIES	 4
+#else
 #define TCP_SYN_RETRIES	 5	/* number of times to retry active opening a
 				 * connection: ~180sec is RFC minimum	*/
-
+#endif
 #define TCP_SYNACK_RETRIES 5	/* number of times to retry passive opening a
 				 * connection: ~180sec is RFC minimum	*/
 
@@ -121,7 +125,13 @@ extern void tcp_time_wait(struct sock *sk, int state, int timeo);
 #define TCP_DELACK_MIN	4U
 #define TCP_ATO_MIN	4U
 #endif
+// LGE_DATA_CHANGE_S, [120810_US_ATT_0025], http://dev.lge.com/wiki/datacop/patch_0025
+#if defined(LGE_ATT) || defined(LGE_TRACFONE)
+#define TCP_RTO_MAX	((unsigned)(3*HZ))
+#else
 #define TCP_RTO_MAX	((unsigned)(120*HZ))
+#endif
+// LGE_DATA_CHANGE_E, [120810_US_ATT_0025], http://dev.lge.com/wiki/datacop/patch_0025
 #define TCP_RTO_MIN	((unsigned)(HZ/5))
 #define TCP_TIMEOUT_INIT ((unsigned)(1*HZ))	/* RFC2988bis initial RTO value	*/
 #define TCP_TIMEOUT_FALLBACK ((unsigned)(3*HZ))	/* RFC 1122 initial RTO value, now
@@ -1454,6 +1464,8 @@ extern struct sk_buff **tcp4_gro_receive(struct sk_buff **head,
 					 struct sk_buff *skb);
 extern int tcp_gro_complete(struct sk_buff *skb);
 extern int tcp4_gro_complete(struct sk_buff *skb);
+
+extern int tcp_nuke_addr(struct net *net, struct sockaddr *addr);
 
 #ifdef CONFIG_PROC_FS
 extern int tcp4_proc_init(void);

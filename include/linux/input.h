@@ -154,6 +154,9 @@ struct input_keymap_entry {
 
 #define EVIOCGRAB		_IOW('E', 0x90, int)			/* Grab/Release device */
 
+#define EVIOCGSUSPENDBLOCK	_IOR('E', 0x91, int)			/* get suspend block enable */
+#define EVIOCSSUSPENDBLOCK	_IOW('E', 0x91, int)			/* set suspend block enable */
+
 #define EVIOCSCLOCKID		_IOW('E', 0xa0, int)			/* Set clockid to be used for timestamps */
 
 /*
@@ -467,6 +470,14 @@ struct input_keymap_entry {
 
 #define KEY_MICMUTE		248	/* Mute / unmute the microphone */
 
+#ifdef CONFIG_MACH_LGE
+#define KEY_RECENT		249 /* Key for recent apps */
+
+#if defined(CONFIG_MACH_MSM8960_FX1) || defined(CONFIG_MACH_MSM8960_VU2)
+#define KEY_QUICK_CLIP	499 /*LGE Quick clip button*/
+#endif
+#endif
+
 /* Code 255 is reserved for special needs of AT keyboard driver */
 
 #define BTN_MISC		0x100
@@ -688,7 +699,7 @@ struct input_keymap_entry {
 #define KEY_NUMERIC_9		0x209
 #define KEY_NUMERIC_STAR	0x20a
 #define KEY_NUMERIC_POUND	0x20b
-
+#define KEY_CAMERA_SNAPSHOT	0x2fe
 #define KEY_CAMERA_FOCUS	0x210
 #define KEY_WPS_BUTTON		0x211	/* WiFi Protected Setup key */
 
@@ -843,7 +854,10 @@ struct input_keymap_entry {
 #define SW_FRONT_PROXIMITY	0x0b  /* set = front proximity sensor active */
 #define SW_ROTATE_LOCK		0x0c  /* set = rotate locked/disabled */
 #define SW_LINEIN_INSERT	0x0d  /* set = inserted */
-#define SW_MAX			0x0f
+#define SW_HPHL_OVERCURRENT    0x0e  /* set = over current on left hph */
+#define SW_HPHR_OVERCURRENT    0x0f  /* set = over current on right hph */
+#define SW_UNSUPPORT_INSERT	0x10  /* set = unsupported device inserted */
+#define SW_MAX			0x20
 #define SW_CNT			(SW_MAX+1)
 
 /*
@@ -1504,7 +1518,7 @@ void input_inject_event(struct input_handle *handle, unsigned int type, unsigned
 
 static inline void input_report_key(struct input_dev *dev, unsigned int code, int value)
 {
-	input_event(dev, EV_KEY, code, !!value);
+	input_event(dev, EV_KEY, code, value);
 }
 
 static inline void input_report_rel(struct input_dev *dev, unsigned int code, int value)

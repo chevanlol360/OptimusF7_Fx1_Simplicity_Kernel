@@ -38,6 +38,16 @@
 
 #include "internal.h"
 
+/* LGE_CHANGE_S
+ *
+ * do read/mmap profiling during booting
+ * in order to use the data as readahead args
+ *
+ * byungchul.park@lge.com 20120503
+ */
+#include "../fs/sreadahead_prof.h"
+/* LGE_CHANGE_E */
+
 #ifndef arch_mmap_check
 #define arch_mmap_check(addr, len, flags)	(0)
 #endif
@@ -1022,6 +1032,16 @@ static unsigned long do_mmap_pgoff(struct file *file, unsigned long addr,
 	}
 
 	inode = file ? file->f_path.dentry->d_inode : NULL;
+
+/* LGE_CHANGE_S
+ *
+ * do read/mmap profiling during booting
+ * in order to use the data as readahead args
+ *
+ * byungchul.park@lge.com 20120503
+ */
+	if( file) sreadahead_prof( file, len, ((loff_t)pgoff)<<PAGE_SHIFT);
+/* LGE_CHANGE_E */
 
 	if (file) {
 		switch (flags & MAP_TYPE) {

@@ -58,6 +58,7 @@
 
 #include <net/arp.h>
 #include <net/ip.h>
+#include <net/tcp.h>
 #include <net/route.h>
 #include <net/ip_fib.h>
 #include <net/rtnetlink.h>
@@ -734,6 +735,7 @@ int devinet_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 	case SIOCSIFBRDADDR:	/* Set the broadcast address */
 	case SIOCSIFDSTADDR:	/* Set the destination address */
 	case SIOCSIFNETMASK: 	/* Set the netmask for the interface */
+	case SIOCKILLADDR:	/* Nuke all sockets on this address */
 		ret = -EACCES;
 		if (!capable(CAP_NET_ADMIN))
 			goto out;
@@ -785,7 +787,8 @@ int devinet_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 	}
 
 	ret = -EADDRNOTAVAIL;
-	if (!ifa && cmd != SIOCSIFADDR && cmd != SIOCSIFFLAGS)
+	if (!ifa && cmd != SIOCSIFADDR && cmd != SIOCSIFFLAGS
+	    && cmd != SIOCKILLADDR)
 		goto done;
 
 	switch (cmd) {
@@ -911,6 +914,9 @@ int devinet_ioctl(struct net *net, unsigned int cmd, void __user *arg)
 			inet_insert_ifa(ifa);
 		}
 		break;
+	case SIOCKILLADDR:	/* Nuke all connections on this address */
+		ret = tcp_nuke_addr(net, (struct sockaddr *) sin);
+		break;
 	}
 done:
 	rtnl_unlock();
@@ -965,7 +971,17 @@ __be32 inet_select_addr(const struct net_device *dev, __be32 dst, int scope)
 {
 	__be32 addr = 0;
 	struct in_device *in_dev;
-	struct net *net = dev_net(dev);
+	struct net *net;
+
+    //LGE DATA Fix Kernel Crash when dev=0
+    if(dev==NULL) return 0;
+    //LGE DATA Fix Kernel Crash when dev=0
+
+    net= dev_net(dev);
+
+    //LGE DATA Fix Kernel Crash when net=0
+    if(net==NULL) return 0;
+    //LGE DATA Fix Kernel Crash when net=0
 
 	rcu_read_lock();
 	in_dev = __in_dev_get_rcu(dev);

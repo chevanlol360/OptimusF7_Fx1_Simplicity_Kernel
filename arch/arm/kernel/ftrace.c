@@ -13,6 +13,7 @@
  */
 
 #include <linux/ftrace.h>
+#include <linux/module.h>
 #include <linux/uaccess.h>
 
 #include <asm/cacheflush.h>
@@ -60,6 +61,36 @@ static unsigned long ftrace_nop_replace(struct dyn_ftrace *rec)
 static unsigned long adjust_address(struct dyn_ftrace *rec, unsigned long addr)
 {
 	return addr;
+}
+#endif
+
+int ftrace_arch_code_modify_prepare(void)
+{
+	set_kernel_text_rw();
+	set_all_modules_text_rw();
+	return 0;
+}
+
+int ftrace_arch_code_modify_post_process(void)
+{
+	set_all_modules_text_ro();
+	set_kernel_text_ro();
+	return 0;
+}
+
+#if 0
+int ftrace_arch_code_modify_prepare(void)
+{
+	set_kernel_text_rw();
+	set_all_modules_text_rw();
+	return 0;
+}
+
+int ftrace_arch_code_modify_post_process(void)
+{
+	set_all_modules_text_ro();
+	set_kernel_text_ro();
+	return 0;
 }
 #endif
 

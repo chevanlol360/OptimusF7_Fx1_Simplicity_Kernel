@@ -20,6 +20,16 @@
 #include <asm/uaccess.h>
 #include <asm/unistd.h>
 
+/* LGE_CHANGE_S
+ *
+ * do read/mmap profiling during booting
+ * in order to use the data as readahead args
+ *
+ * byungchul.park@lge.com 20120503
+ */
+#include "sreadahead_prof.h"
+/* LGE_CHAGE_E */
+
 const struct file_operations generic_ro_fops = {
 	.llseek		= generic_file_llseek,
 	.read		= do_sync_read,
@@ -374,6 +384,18 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
 
 	ret = rw_verify_area(READ, file, pos, count);
 	if (ret >= 0) {
+
+/* LGE_CHANGE_S
+ *
+ * do read/mmap profiling during booting
+ * in order to use the data as readahead args
+ *
+ * byungchul.park@lge.com 20120503
+ */
+	sreadahead_prof( file, count, *pos);
+/* LGE_CHANGE_E */
+
+
 		count = ret;
 		if (file->f_op->read)
 			ret = file->f_op->read(file, buf, count, pos);
@@ -731,6 +753,16 @@ static ssize_t do_readv_writev(int type, struct file *file,
 	ret = rw_verify_area(type, file, pos, tot_len);
 	if (ret < 0)
 		goto out;
+
+/* LGE_CHANGE_S
+ *
+ * do read/mmap profiling during booting
+ * in order to use the data as readahead args
+ *
+ * byungchul.park@lge.com 20120503
+ */
+	if( type == READ) sreadahead_prof( file, tot_len, *pos);
+/* LGE_CHANGE_E */
 
 	fnv = NULL;
 	if (type == READ) {

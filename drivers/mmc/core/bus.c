@@ -122,6 +122,7 @@ static int mmc_bus_remove(struct device *dev)
 	return 0;
 }
 
+#ifdef CONFIG_PM_SLEEP
 static int mmc_bus_suspend(struct device *dev)
 {
 	struct mmc_driver *drv = to_mmc_driver(dev->driver);
@@ -143,6 +144,10 @@ static int mmc_bus_resume(struct device *dev)
 		ret = drv->resume(card);
 	return ret;
 }
+#else
+#define mmc_bus_suspend NULL
+#define mmc_bus_resume NULL
+#endif
 
 #ifdef CONFIG_PM_RUNTIME
 
@@ -249,6 +254,8 @@ struct mmc_card *mmc_alloc_card(struct mmc_host *host, struct device_type *type)
 	card->dev.release = mmc_release_card;
 	card->dev.type = type;
 
+	spin_lock_init(&card->wr_pack_stats.lock);
+
 	return card;
 }
 
@@ -317,13 +324,35 @@ int mmc_add_card(struct mmc_card *card)
 			uhs_bus_speed_mode, type, card->rca);
 	}
 
+#ifdef CONFIG_MACH_LGE
+	/* LGE_CHANGE
+	* Adding Print
+	* 2011-11-10, warkap.seo@lge.com
+	*/
+	printk(KERN_INFO "[LGE][MMC][%-18s( )] mmc_hostname:%s, type:%s\n", __func__, mmc_hostname(card->host), type);
+#endif
+
 #ifdef CONFIG_DEBUG_FS
 	mmc_add_card_debugfs(card);
 #endif
 
 	ret = device_add(&card->dev);
+
+#ifdef CONFIG_MACH_LGE
+	/* LGE_CHANGE
+	* Adding Print
+	* 2011-11-10, warkap.seo@lge.com
+	*/
+	if (ret) {
+		printk(KERN_INFO "[LGE][MMC][%-18s( )] device_add & uevent posting fail!, ret:%d \n", __func__, ret);
+		return ret;
+	} else {
+		printk(KERN_INFO "[LGE][MMC][%-18s( )] device_add & uevent posting complete!\n", __func__);
+	}
+#else
 	if (ret)
 		return ret;
+#endif
 
 	mmc_card_set_present(card);
 
@@ -350,6 +379,8 @@ void mmc_remove_card(struct mmc_card *card)
 		}
 		device_del(&card->dev);
 	}
+
+	kfree(card->wr_pack_stats.packing_events);
 
 	put_device(&card->dev);
 }
