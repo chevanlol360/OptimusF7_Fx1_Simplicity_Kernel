@@ -3,6 +3,7 @@ How to Build
 **This short guide assumes you're on Ubuntu 11.04 or above** and have your Android build enviroment setup already.
 
 Getting SimplicityXL Kernel source & tools
+-------------------------------------------
 
 First, we need to create directories for the build so open Terminal and issue the follow commands:
     $ cd 
