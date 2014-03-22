@@ -73,6 +73,6 @@ Issue the following commands to loki your kernel
     $ git clone https://github.com/chevanlol360/Loki
     
 Doubble click on the run.sh command and when its done a new file called LG870LokiKer.img will be the output flash it to your device.   
->>>>>>> 900d27998f5cb7cb0acc14def441be27ff17df30
+
 
 
