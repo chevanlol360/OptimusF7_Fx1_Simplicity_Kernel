@@ -47,7 +47,18 @@ Continue Issuing commands
 
     $ make -j4
     
-When its done you'll find you zlmage under /arch/arm/boot
+When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel from your phone and unpack the boot.img with Android Kitchen then go inside the unpacked folder and replace the zlmage in the folder with the one you just built. Then Repack the boot.img with Android Kitchen and continue below.
+
+**Loki'ing
+Issue the following commands to loki your kernel
+    
+    $ cd
+    $ Android
+    $ mkdir Loki
+    $ cd Loki
+    $ git clone https://github.com/chevanlol360/loki
+    
+Doubble click on the run.sh command and when its done a new file called smpboot.loki will be the output flash it to your device.   
 
 
-Head over to "Link here" to find out how to loki it and flash it.
+
