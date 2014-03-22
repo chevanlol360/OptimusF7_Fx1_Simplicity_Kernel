@@ -47,9 +47,16 @@ Continue Issuing commands
 
     $ make -j4
     
-When its done you'll find you zlmage under /arch/arm/boot
+When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel and unpack the boot.img with Android Kitchen then go inside the unpacked folder and raplce the zlimage in the folder with the one you just built. Then Repack the boot.img with Android Kitchen and continue below.
 
-
-Head over to "Link here" to find out how to loki it and flash it.
+**Loki'ing
+Issue the following commands to loki your kernel
+    
+    $ cd
+    $ mkdir Loki
+    $ cd Loki
+    $ git clone https://github.com/chevanlol360/Loki
+    
+Doubble click on the run.sh command and when its done a new file called LG870LokiKer.img will be the output flash it to your device.   
 
 
