@@ -72,7 +72,7 @@ Issue the following commands to loki your kernel
     $ cd Loki
     $ git clone https://github.com/chevanlol360/Loki
     
-Doubble click on the run.sh command and when its done a new file called LG870LokiKer.img will be the output flash it to your device.   
+Doubble click on the run.sh command and when its done a new file called smpboot.img will be the output flash it to your device.   
 
 
 
