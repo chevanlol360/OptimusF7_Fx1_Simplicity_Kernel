@@ -61,6 +61,6 @@ Issue the following commands to loki your kernel
     $ cd Loki
     $ git clone https://github.com/chevanlol360/loki
     
-Doubble click on the run.sh command and when its done a new file called smpboot.loki will be the output flash it to your device.   
+Doubble click on the run.sh and open it with terminal and when its done a new file called smpboot.loki will be the output flash it to your device.   
 
 
