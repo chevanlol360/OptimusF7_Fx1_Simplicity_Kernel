@@ -6625,3 +6625,4 @@ struct clock_init_data msm8930_clock_init_data __initdata = {
 	.post_init = msm8960_clock_post_init,
 	.late_init = msm8960_clock_late_init,
 };
+

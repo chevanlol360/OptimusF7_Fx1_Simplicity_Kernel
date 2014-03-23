@@ -27,7 +27,8 @@ Now that you have the kernel source, you need to get toolchains:
     $ mkdir toolchains
     $ git clone https://github.com/DooMLoRD/android_prebuilt_toolchains
 
-**Building
+Compiling Kernel
+====================
 Issue the following commands to build the kernel
 
     $ cd
@@ -50,7 +51,8 @@ Continue Issuing commands
 <<<<<<< HEAD
 When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel from your phone and unpack the boot.img with Android Kitchen then go inside the unpacked folder and replace the zlmage in the folder with the one you just built. Then Repack the boot.img with Android Kitchen and continue below.
 
-**Loki'ing
+Loki'ing
+====================
 Issue the following commands to loki your kernel
     
     $ cd
@@ -68,11 +70,12 @@ When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel 
 Issue the following commands to loki your kernel
     
     $ cd
+    $ cd Android
     $ mkdir Loki
     $ cd Loki
     $ git clone https://github.com/chevanlol360/Loki
     
-Doubble click on the run.sh command and when its done a new file called smpboot.img will be the output flash it to your device.   
+Doubble click on the run.sh file and when its done a new file called smpboot.img will be the output flash it to your device.   
 
 
 

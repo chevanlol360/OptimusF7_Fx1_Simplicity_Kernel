@@ -4087,3 +4087,4 @@ struct platform_device mdm_sglte_device = {
 	.num_resources	= ARRAY_SIZE(sglte_resources),
 	.resource	= sglte_resources,
 };
+
