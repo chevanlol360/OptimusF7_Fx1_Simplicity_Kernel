@@ -389,8 +389,6 @@ obj-$(CONFIG_MSM_VP_REGULATOR) += msm_vp.o
 
 obj-$(CONFIG_FORCE_FAST_CHARGE) += fastchg.o
 
-obj-$(CONFIG_ARCH_RANDOM) += early_random.o
-
 ifdef CONFIG_MSM_CPR
 obj-$(CONFIG_DEBUG_FS) += msm_cpr-debug.o
 endif
