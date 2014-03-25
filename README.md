@@ -19,11 +19,11 @@ First, we need to create directories for the build so open Terminal and issue th
     $ mkdir SmpXlKernel
     $ cd SmpXlKernel
 
-    $   git clone https://github.com/chevanlol360/Simplicity_kernel_Fx1_LG870
+    $ git clone https://github.com/chevanlol360/Simplicity_kernel_Fx1_LG870
 
 Now that you have the kernel source, you need to get toolchains:
 
-    $ cd /Android
+    $ cd /Android/Kernel
     $ mkdir toolchains
     $ git clone https://github.com/chevanlol360/android_prebuilt_toolchains
 
@@ -32,9 +32,9 @@ Compiling Kernel
 Issue the following commands to build the kernel
 
     $ cd
-    $ cd Android/Kernel/Device/LG870/SmpXlKernel
+    $ cd Android/Kernel/Device/LG870/SmpXlKernel/Simplicity_kernel_Fx1_LG870
     $ export ARCH=arm
-    $ export CROSS_COMPILE=~/Android/Kernel/toolchains/arm-eabi-linaro-4.6.2/bin/arm-eabi-
+    $ export CROSS_COMPILE=~/Android/Kernel/toolchains/android_prebuilt_toolchains/arm-eabi-linaro-4.6.2/bin/arm-eabi-
     $ make clean 
     $ make 1chaos_defconfig
     $ make menuconfig
@@ -49,7 +49,7 @@ Continue Issuing commands
     $ make -j4
     
 
-When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel from your phone and unpack the boot.img with Android Kitchen then go inside the unpacked folder and replace the zlmage in the folder with the one you just built. Then Repack the boot.img with Android Kitchen and continue below.
+When its done you'll find your zlmage under /arch/arm/boot Grabbed stock kernel from your phone and unpack the boot.img with Android Kitchen then go inside the unpacked folder and replace the zlmage in the folder with the one you just built. Then go back to the Simplicity Kernel Directory and copy the folder called "boot.img-ramdisk" and then go back to the Android Kitchen folder then go inside the unpakced folder again and delete the Folder inside called "boot.img-ramdisk" and then paste the folder you just copied from the kernel directory. Then Repack the boot.img with Android Kitchen and continue below.
 
 Loki'ing
 ====================
@@ -61,6 +61,4 @@ Issue the following commands to loki your kernel
     $ cd Loki
     $ git clone https://github.com/chevanlol360/loki
     
-Doubble click on the run.sh file and open it with terminal and when its done a new file called smpboot.loki will be the output flash it to your device.   
-
-
+Go inside the Loki folder and doubble click on the run.sh file and open it with terminal and when its done a new file called smpboot.loki will be the output flash it to your device.  
