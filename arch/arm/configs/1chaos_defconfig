@@ -710,3 +710,6 @@ CONFIG_CRYPTO_AES=y
 # save cpu and mmu registers to support simulation when debugging
 CONFIG_CPU_CP15=y
 CONFIG_CPU_CP15_MMU=y
+
+#GPU Simple gov
+CONFIG_MSM_KGSL_SIMPLE_GOV=y
