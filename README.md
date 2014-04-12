@@ -39,11 +39,6 @@ Issue the following commands to build the kernel
     $ make 1chaos_defconfig
     $ make menuconfig
 
-When the Menu pops up, scroll down to "Kernel Hacking" and press enter.
-Then scroll down to the 5th option called "Warn from stack frames larger than" press enter.
-Change the # from 1024 to 1032 and press enter.
-Use your arrow keys and exit it out of the config menu when ask to save changes select yes and press enter.
-
 Continue Issuing commands
 
     $ make -j4
