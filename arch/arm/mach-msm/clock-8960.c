@@ -3327,10 +3327,14 @@ static struct clk_freq_tbl clk_tbl_gfx2d[] = {
 	F_GFX2D(160000000, pll2, 1,  5),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 9b28f45... idk
         F_GFX2D(228571000, pll2, 2,  9),
 	F_GFX2D(266667000, pll2, 1,  4),
 	F_GFX2D(300000000, pll2, 2,  7),
 	F_GFX2D(320000000, pll2, 1,  3),
+<<<<<<< HEAD
 =======
 	F_GFX2D(177778000, pll2, 2,  9),
 	F_GFX2D(200000000, pll2, 1,  4),
@@ -3342,6 +3346,8 @@ static struct clk_freq_tbl clk_tbl_gfx2d[] = {
 	F_GFX2D(300000000, pll2, 2,  8),
 	F_GFX2D(320000000, pll2, 2,  5),
 >>>>>>> parent of 351ab5f... GPU OC
+=======
+>>>>>>> parent of 9b28f45... idk
 	F_END
 };
 
@@ -3384,8 +3390,8 @@ static struct rcg_clk gfx2d0_clk = {
 		.dbg_name = "gfx2d0_clk",
 		.ops = &clk_ops_rcg,
 		.flags = CLKFLAG_SKIP_HANDOFF,
-		VDD_DIG_FMAX_MAP3(LOW,  100000000, NOMINAL, 200000000,
-				  HIGH, 228571000),
+		VDD_DIG_FMAX_MAP3(LOW,  100000000, NOMINAL, 266667000,
+				  HIGH, 320000000),
 		CLK_INIT(gfx2d0_clk.c),
 	},
 };
@@ -3429,8 +3435,8 @@ static struct rcg_clk gfx2d1_clk = {
 		.dbg_name = "gfx2d1_clk",
 		.ops = &clk_ops_rcg,
 		.flags = CLKFLAG_SKIP_HANDOFF,
-		VDD_DIG_FMAX_MAP3(LOW,  100000000, NOMINAL, 200000000,
-				  HIGH, 228571000),
+		VDD_DIG_FMAX_MAP3(LOW,  100000000, NOMINAL, 266667000,
+				  HIGH, 320000000),
 		CLK_INIT(gfx2d1_clk.c),
 	},
 };
@@ -3459,11 +3465,15 @@ static struct clk_freq_tbl clk_tbl_gfx3d_8960[] = {
 	F_GFX3D(200000000, pll2, 1,  4),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 9b28f45... idk
 	F_GFX3D(266667000, pll2, 2,  7),
 	F_GFX3D(320000000, pll2, 1,  3),
 	F_GFX3D(400000000, pll2, 3,  8),
 	F_GFX3D(450000000, pll2, 1,  2),
 	F_GFX3D(512000000, pll2, 2,  5),
+<<<<<<< HEAD
 =======
 	F_GFX3D(228571000, pll2, 2,  7),
 	F_GFX3D(266667000, pll2, 1,  3),
@@ -3478,6 +3488,8 @@ static struct clk_freq_tbl clk_tbl_gfx3d_8960[] = {
 	F_GFX3D(450000000, pll2, 3,  5),
 	F_GFX3D(512000000, pll2, 5,  8),
 >>>>>>> parent of 351ab5f... GPU OC
+=======
+>>>>>>> parent of 9b28f45... idk
 	F_END
 };
 
@@ -3573,8 +3585,8 @@ static struct rcg_clk gfx3d_clk = {
 	.c = {
 		.dbg_name = "gfx3d_clk",
 		.ops = &clk_ops_rcg,
-		VDD_DIG_FMAX_MAP3(LOW,  128000000, NOMINAL, 300000000,
-				  HIGH, 400000000),
+		VDD_DIG_FMAX_MAP3(LOW,  128000000, NOMINAL, 320000000,
+				  HIGH, 512000000),
 		CLK_INIT(gfx3d_clk.c),
 		.depends = &gmem_axi_clk.c,
 	},
