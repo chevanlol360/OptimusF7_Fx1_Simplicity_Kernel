@@ -2846,7 +2846,7 @@ static struct msm_bus_vectors grp3d_low_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_3D,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2400),  //300 MHz GPU
+		.ib = KGSL_CONVERT_TO_MBPS(1000),
 	},
 };
 
@@ -2855,7 +2855,7 @@ static struct msm_bus_vectors grp3d_nominal_low_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_3D,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-	        .ib = KGSL_CONVERT_TO_MBPS(3200),  //400 MHz GPU
+		.ib = KGSL_CONVERT_TO_MBPS(2048),
 	},
 };
 
@@ -2864,7 +2864,7 @@ static struct msm_bus_vectors grp3d_nominal_high_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_3D,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(3600), //450 MHz GPU
+		.ib = KGSL_CONVERT_TO_MBPS(2656),
 	},
 };
 
@@ -2873,7 +2873,7 @@ static struct msm_bus_vectors grp3d_max_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_3D,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(4000), //500 MHz GPU
+		.ib = KGSL_CONVERT_TO_MBPS(3968),
 	},
 };
 
@@ -2920,7 +2920,7 @@ static struct msm_bus_vectors grp2d0_nominal_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_2D_CORE0,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2400),  //300 MHz 
+		.ib = KGSL_CONVERT_TO_MBPS(1000),
 	},
 };
 
@@ -2929,7 +2929,7 @@ static struct msm_bus_vectors grp2d0_max_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_2D_CORE0,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2560),  //320MHz GPU = 2400 Mbps
+		.ib = KGSL_CONVERT_TO_MBPS(2048),
 	},
 };
 
@@ -2968,7 +2968,7 @@ static struct msm_bus_vectors grp2d1_nominal_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_2D_CORE1,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2400),  //300 MHz GPU
+		.ib = KGSL_CONVERT_TO_MBPS(1000),
 	},
 };
 
@@ -2977,7 +2977,7 @@ static struct msm_bus_vectors grp2d1_max_vectors[] = {
 		.src = MSM_BUS_MASTER_GRAPHICS_2D_CORE1,
 		.dst = MSM_BUS_SLAVE_EBI_CH0,
 		.ab = 0,
-		.ib = KGSL_CONVERT_TO_MBPS(2560),  //320MHz GPU = 2400 Mbps
+		.ib = KGSL_CONVERT_TO_MBPS(2048),
 	},
 };
 
@@ -3035,33 +3035,32 @@ static struct kgsl_device_iommu_data kgsl_3d0_iommu_data[] = {
 static struct kgsl_device_platform_data kgsl_3d0_pdata = {
 	.pwrlevel = {
 		{
-			.gpu_freq = 512000000,
-			.bus_freq = 4,
-			.io_fraction = 33,
-		},
-		{
 			.gpu_freq = 400000000,
-			.bus_freq = 3,
-			.io_fraction = 50,
+			.bus_freq = 4,
+			.io_fraction = 0,
 		},
 		{
 			.gpu_freq = 300000000,
+			.bus_freq = 3,
+			.io_fraction = 33,
+		},
+		{
+			.gpu_freq = 200000000,
 			.bus_freq = 2,
 			.io_fraction = 100,
 		},
 		{
-			.gpu_freq = 266667000,
+			.gpu_freq = 128000000,
 			.bus_freq = 1,
 			.io_fraction = 100,
 		},
 		{
-			.gpu_freq = 20000000,
+			.gpu_freq = 27000000,
 			.bus_freq = 0,
 		},
 	},
-        .init_level = 1,
-	.max_level= 2,
-	.num_levels = 5,
+	.init_level = 1,
+	.num_levels = ARRAY_SIZE(grp3d_freq) + 1,
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/12,
 	.nap_allowed = true,
@@ -3115,29 +3114,20 @@ static struct kgsl_device_iommu_data kgsl_2d0_iommu_data[] = {
 static struct kgsl_device_platform_data kgsl_2d0_pdata = {
 	.pwrlevel = {
 		{
-			.gpu_freq = 320000000,
-			.bus_freq = 4,
-		},
-		{
-			.gpu_freq = 266667000,
-			.bus_freq = 3,
-		},
-		{
 			.gpu_freq = 200000000,
 			.bus_freq = 2,
 		},
 		{
 			.gpu_freq = 96000000,
 			.bus_freq = 1,
-                },
-                {
+		},
+		{
 			.gpu_freq = 27000000,
 			.bus_freq = 0,
-                },
+		},
 	},
-	.init_level = 1,
-	.max_level= 2,
-	.num_levels = 5,
+	.init_level = 0,
+	.num_levels = ARRAY_SIZE(grp2d_freq) + 1,
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/5,
 	.nap_allowed = true,
@@ -3191,29 +3181,20 @@ static struct resource kgsl_2d1_resources[] = {
 static struct kgsl_device_platform_data kgsl_2d1_pdata = {
 	.pwrlevel = {
 		{
-			.gpu_freq = 320000000,
-			.bus_freq = 4,
-		},
-		{
-			.gpu_freq = 266667000,
-			.bus_freq = 3,
-		},
-		{
-			.gpu_freq = 20000000,
+			.gpu_freq = 200000000,
 			.bus_freq = 2,
 		},
-  	        {
-  			.gpu_freq = 96000000,
-  			.bus_freq = 1,
-  		},
-  		{
-  			.gpu_freq = 27000000,
-  			.bus_freq = 0,
-                },
+		{
+			.gpu_freq = 96000000,
+			.bus_freq = 1,
+		},
+		{
+			.gpu_freq = 27000000,
+			.bus_freq = 0,
+		},
 	},
-	.init_level = 1,
- 	.max_level= 2,
- 	.num_levels = 5,
+	.init_level = 0,
+	.num_levels = ARRAY_SIZE(grp2d_freq) + 1,
 	.set_grp_async = NULL,
 	.idle_timeout = HZ/5,
 	.nap_allowed = true,
