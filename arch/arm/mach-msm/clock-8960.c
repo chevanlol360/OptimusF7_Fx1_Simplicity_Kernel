@@ -3329,10 +3329,13 @@ static struct clk_freq_tbl clk_tbl_gfx2d[] = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 9b28f45... idk
 =======
 >>>>>>> parent of 9b28f45... idk
+=======
+>>>>>>> parent of 721723d... Revert GPU OC
         F_GFX2D(228571000, pll2, 2,  9),
 	F_GFX2D(266667000, pll2, 1,  4),
 	F_GFX2D(300000000, pll2, 2,  7),
@@ -3344,6 +3347,7 @@ static struct clk_freq_tbl clk_tbl_gfx2d[] = {
 	F_GFX2D(200000000, pll2, 1,  4),
 	F_GFX2D(228571000, pll2, 2,  7),
 >>>>>>> parent of 7d49241... Revert "Revert "Revert "Revert "OC'd GPU Based On Qualcomm's specs""""
+<<<<<<< HEAD
 =======
         F_GFX2D(228571000, pll2, 2,  7),
 	F_GFX2D(266667000, pll2, 1,  3),
@@ -3354,6 +3358,8 @@ static struct clk_freq_tbl clk_tbl_gfx2d[] = {
 >>>>>>> parent of 9b28f45... idk
 =======
 >>>>>>> parent of 9b28f45... idk
+=======
+>>>>>>> parent of 721723d... Revert GPU OC
 	F_END
 };
 
@@ -3473,10 +3479,13 @@ static struct clk_freq_tbl clk_tbl_gfx3d_8960[] = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 9b28f45... idk
 =======
 >>>>>>> parent of 9b28f45... idk
+=======
+>>>>>>> parent of 721723d... Revert GPU OC
 	F_GFX3D(266667000, pll2, 2,  7),
 	F_GFX3D(320000000, pll2, 1,  3),
 	F_GFX3D(400000000, pll2, 3,  8),
@@ -3491,6 +3500,7 @@ static struct clk_freq_tbl clk_tbl_gfx3d_8960[] = {
 	F_GFX3D(320000000, pll2, 2,  5),
 	F_GFX3D(400000000, pll2, 1,  2),
 >>>>>>> parent of 7d49241... Revert "Revert "Revert "Revert "OC'd GPU Based On Qualcomm's specs""""
+<<<<<<< HEAD
 =======
 	F_GFX3D(266667000, pll2, 1,  3),
 	F_GFX3D(320000000, pll2, 2,  5),
@@ -3502,6 +3512,8 @@ static struct clk_freq_tbl clk_tbl_gfx3d_8960[] = {
 >>>>>>> parent of 9b28f45... idk
 =======
 >>>>>>> parent of 9b28f45... idk
+=======
+>>>>>>> parent of 721723d... Revert GPU OC
 	F_END
 };
 
