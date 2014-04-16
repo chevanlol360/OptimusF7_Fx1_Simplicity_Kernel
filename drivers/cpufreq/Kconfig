@@ -132,12 +132,6 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
  	bool "interactiveX"
  	select CPU_FREQ_GOV_INTERACTIVEX
  
-
-config CPU_FREQ_DEFAULT_GOV_INTELLIDEMAND
-	bool "intellidemand"
-	select CPU_FREQ_GOV_INTELLIDEMAND
-
- 
 config CPU_FREQ_DEFAULT_GOV_HOTPLUG
 	bool "hotplug"
  	select CPU_FREQ_GOV_HOTPLUG
@@ -259,10 +253,6 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 config CPU_FREQ_GOV_INTERACTIVEX
  	tristate "'interactivex' cpufreq governor"
- 	depends on CPU_FREQ
- 
-config CPU_FREQ_GOV_INTELLIDEMAND
- 	tristate "'intellidemand' cpufreq governor"
  	depends on CPU_FREQ
  
 config CPU_FREQ_GOV_HOTPLUG
